@@ -2723,6 +2723,9 @@ ACCOUNT_VISIBILITY_CONFIGURATION = {
     ]
 }
 
+# Used for updating ConfigurationModels via a management command.
+CONFIG_MODEL_SERVICE_WORKER_USERNAME = 'config_model_worker'
+
 # E-Commerce API Configuration
 ECOMMERCE_PUBLIC_URL_ROOT = None
 ECOMMERCE_API_URL = None
