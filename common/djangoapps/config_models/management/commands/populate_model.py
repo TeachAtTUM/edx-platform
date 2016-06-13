@@ -63,7 +63,7 @@ class Command(BaseCommand):
 
         json_file = options['file']
         if not os.path.exists(json_file):
-            raise CommandError(_("File {0} does not exist".format(json_file)))
+            raise CommandError(_("File {0} does not exist").format(json_file))
 
         if 'username' in options and options['username']:
             username = options['username']

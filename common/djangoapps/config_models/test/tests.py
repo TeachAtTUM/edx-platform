@@ -25,6 +25,11 @@ class ExampleConfig(ConfigurationModel):
     string_field = models.TextField()
     int_field = models.IntegerField(default=10)
 
+    def __unicode__(self):
+        return "ExampleConfig(enabled={}, string_field={}, int_field={})".format(
+            self.enabled, self.string_field, self.int_field
+        )
+
 
 @patch('config_models.models.cache')
 class ConfigurationModelTests(TestCase):
@@ -119,6 +124,11 @@ class ExampleKeyedConfig(ConfigurationModel):
 
     string_field = models.TextField()
     int_field = models.IntegerField(default=10)
+
+    def __unicode__(self):
+        return "ExampleKeyedConfig(enabled={}, left={}, right={}, string_field={}, int_field={})".format(
+            self.enabled, self.left, self.right, self.string_field, self.int_field
+        )
 
 
 @ddt.ddt
