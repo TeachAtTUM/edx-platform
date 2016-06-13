@@ -285,7 +285,7 @@ class TestInstructorGradeReport(InstructorGradeReportTestCase):
             user_b.username,
             course.id,
             cohort_name_header,
-            ''
+            u'Default Group',
         )
 
     @patch('instructor_task.tasks_helper._get_current_task')
