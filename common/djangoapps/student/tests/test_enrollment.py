@@ -14,7 +14,7 @@ from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory
 from util.testing import UrlResetMixin
 from embargo.test_utils import restrict_course
-from student.tests.factories import UserFactory, CourseModeFactory
+from student.tests.factories import UserFactory, CourseModeFactory, CourseEnrollmentFactory
 from student.models import CourseEnrollment, CourseFullError
 from student.roles import (
     CourseInstructorRole,
@@ -286,14 +286,14 @@ class EnrollmentTest(UrlResetMixin, SharedModuleStoreTestCase):
     def test_get_or_create_integrity_error(self):
         """Verify that get_or_create_enrollment handles IntegrityError."""
 
-        CourseEnrollment.objects.create(course_id=self.course.id,user=self.user)
-
-        from nose.tools import set_trace; set_trace()
+        CourseEnrollmentFactory.create(user=self.user, course_id=self.course.id)
 
         with patch.object(CourseEnrollment.objects, "get_or_create") as mock_get_or_create:
             mock_get_or_create.side_effect = IntegrityError
-            with self.assertRaises(IntegrityError):
-                _ = CourseEnrollment.get_or_create_enrollment(
-                    self.user,
-                    self.course.id
-                )
+            enrollment = CourseEnrollment.get_or_create_enrollment(
+                self.user,
+                self.course.id
+            )
+
+        self.assertEqual(enrollment.user, self.user)
+        self.assertEqual(enrollment.course.id, self.course.id)

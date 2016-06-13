@@ -1000,7 +1000,6 @@ class CourseEnrollment(models.Model):
         ).format(self.user, self.course_id, self.created, self.is_active)
 
     @classmethod
-    @transaction.atomic
     def get_or_create_enrollment(cls, user, course_key):
         """
         Create an enrollment for a user in a class. By default *this enrollment
@@ -1050,7 +1049,6 @@ class CourseEnrollment(models.Model):
                 ),
                 course_key, user
             )
-            transaction.commit()
             enrollment = cls.objects.get(
                 user=user,
                 course_id=course_key,
