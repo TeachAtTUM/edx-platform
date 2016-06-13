@@ -8,6 +8,7 @@ from nose.plugins.attrib import attr
 
 from django.conf import settings
 from django.core.urlresolvers import reverse
+from django.db import IntegrityError
 from course_modes.models import CourseMode
 from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory
@@ -281,3 +282,18 @@ class EnrollmentTest(UrlResetMixin, SharedModuleStoreTestCase):
             params['email_opt_in'] = email_opt_in
 
         return self.client.post(reverse('change_enrollment'), params)
+
+    def test_get_or_create_integrity_error(self):
+        """Verify that get_or_create_enrollment handles IntegrityError."""
+
+        CourseEnrollment.objects.create(course_id=self.course.id,user=self.user)
+
+        from nose.tools import set_trace; set_trace()
+
+        with patch.object(CourseEnrollment.objects, "get_or_create") as mock_get_or_create:
+            mock_get_or_create.side_effect = IntegrityError
+            with self.assertRaises(IntegrityError):
+                _ = CourseEnrollment.get_or_create_enrollment(
+                    self.user,
+                    self.course.id
+                )
