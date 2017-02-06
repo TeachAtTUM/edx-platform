@@ -32,8 +32,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1a\n"
 "Report-Msgid-Bugs-To: openedx-translation@googlegroups.com\n"
-"POT-Creation-Date: 2017-02-02 19:34+0000\n"
-"PO-Revision-Date: 2017-02-02 19:34:37.395873\n"
+"POT-Creation-Date: 2017-02-06 12:48+0000\n"
+"PO-Revision-Date: 2017-02-06 12:48:21.224748\n"
 "Last-Translator: \n"
 "Language-Team: openedx-translation <openedx-translation@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -14976,19 +14976,19 @@ msgstr "بهمفثق:"
 
 #. Translators: This is a menu option for showing all forum threads unfiltered
 #: lms/templates/discussion/_thread_list_template.html
-msgid "Show all"
-msgstr "ساخص شمم"
+msgid "Show all posts"
+msgstr "ساخص شمم حخسفس"
 
 #. Translators: This is a menu option for showing only unread forum threads
 #: lms/templates/discussion/_thread_list_template.html
-msgid "Unread"
-msgstr "عرقثشي"
+msgid "Unread posts"
+msgstr "عرقثشي حخسفس"
 
 #. Translators: This is a menu option for showing only unanswered forum
 #. question threads
 #: lms/templates/discussion/_thread_list_template.html
-msgid "Unanswered"
-msgstr "عرشرسصثقثي"
+msgid "Unanswered posts"
+msgstr "عرشرسصثقثي حخسفس"
 
 #. Translators: This is a menu option for showing only forum threads flagged
 #. for abuse
@@ -18715,6 +18715,10 @@ msgstr "ذاشرلثس"
 #: lms/templates/wiki/includes/article_menu.html
 msgid "{span_start}active{span_end}"
 msgstr "{span_start}شذفهدث{span_end}"
+
+#: lms/templates/wiki/includes/breadcrumbs.html
+msgid "Course Wiki"
+msgstr "ذخعقسث صهنه"
 
 #: lms/templates/wiki/includes/breadcrumbs.html
 msgid "Add article"

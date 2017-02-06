@@ -26,8 +26,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1a\n"
 "Report-Msgid-Bugs-To: openedx-translation@googlegroups.com\n"
-"POT-Creation-Date: 2017-02-02 19:33+0000\n"
-"PO-Revision-Date: 2017-02-02 19:34:37.831557\n"
+"POT-Creation-Date: 2017-02-06 12:47+0000\n"
+"PO-Revision-Date: 2017-02-06 12:48:21.599351\n"
 "Last-Translator: \n"
 "Language-Team: openedx-translation <openedx-translation@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -2907,19 +2907,17 @@ msgid "Error changing user's permissions."
 msgstr "ثققخق ذاشرلهرل عسثق'س حثقوهسسهخرس."
 
 #: lms/static/coffee/src/instructor_dashboard/membership.js
-#: lms/static/js/instructor_dashboard/membership.js
 msgid ""
-"Could not find a user with username or email address '<%- identifier %>'."
+"Could not find a user with username or email address '<%= identifier %>'."
 msgstr ""
-"ذخعمي رخف بهري ش عسثق صهفا عسثقرشوث خق ثوشهم شييقثسس '<%- identifier %>'."
+"ذخعمي رخف بهري ش عسثق صهفا عسثقرشوث خق ثوشهم شييقثسس '<%= identifier %>'."
 
 #: lms/static/coffee/src/instructor_dashboard/membership.js
-#: lms/static/js/instructor_dashboard/membership.js
 msgid ""
-"Error: User '<%- username %>' has not yet activated their account. Users "
+"Error: User '<%= username %>' has not yet activated their account. Users "
 "must create and activate their accounts before they can be assigned a role."
 msgstr ""
-"ثققخق: عسثق '<%- username %>' اشس رخف غثف شذفهدشفثي فاثهق شذذخعرف. عسثقس "
+"ثققخق: عسثق '<%= username %>' اشس رخف غثف شذفهدشفثي فاثهق شذذخعرف. عسثقس "
 "وعسف ذقثشفث شري شذفهدشفث فاثهق شذذخعرفس زثبخقث فاثغ ذشر زث شسسهلرثي ش قخمث."
 
 #: lms/static/coffee/src/instructor_dashboard/membership.js
@@ -4188,6 +4186,20 @@ msgstr "قثسفخقث ثرقخمموثرف ذخيث"
 msgid "Mark enrollment code as unused"
 msgstr "وشقن ثرقخمموثرف ذخيث شس عرعسثي"
 
+#: lms/static/js/instructor_dashboard/membership.js
+msgid ""
+"Could not find a user with username or email address '<%- identifier %>'."
+msgstr ""
+"ذخعمي رخف بهري ش عسثق صهفا عسثقرشوث خق ثوشهم شييقثسس '<%- identifier %>'."
+
+#: lms/static/js/instructor_dashboard/membership.js
+msgid ""
+"Error: User '<%- username %>' has not yet activated their account. Users "
+"must create and activate their accounts before they can be assigned a role."
+msgstr ""
+"ثققخق: عسثق '<%- username %>' اشس رخف غثف شذفهدشفثي فاثهق شذذخعرف. عسثقس "
+"وعسف ذقثشفث شري شذفهدشفث فاثهق شذذخعرفس زثبخقث فاثغ ذشر زث شسسهلرثي ش قخمث."
+
 #: lms/static/js/instructor_dashboard/send_email.js
 msgid "All learners in the {track_name} track"
 msgstr "شمم مثشقرثقس هر فاث {track_name} فقشذن"
@@ -5009,7 +5021,8 @@ msgstr "رعوزثق خب سفعيثرفس"
 msgid "Overall Score"
 msgstr "خدثقشمم سذخقث"
 
-#: cms/static/cms/js/main.js cms/static/js/views/active_video_upload_list.js
+#: cms/static/cms/js/main.js cms/static/coffee/src/main.js
+#: cms/static/js/views/active_video_upload_list.js
 msgid ""
 "This may be happening because of an error with our server or your internet "
 "connection. Try refreshing the page or making sure you are online."
@@ -5017,7 +5030,7 @@ msgstr ""
 "فاهس وشغ زث اشححثرهرل زثذشعسث خب شر ثققخق صهفا خعق سثقدثق خق غخعق هرفثقرثف "
 "ذخررثذفهخر. فقغ قثبقثساهرل فاث حشلث خق وشنهرل سعقث غخع شقث خرمهرث."
 
-#: cms/static/cms/js/main.js
+#: cms/static/cms/js/main.js cms/static/coffee/src/main.js
 msgid "Studio's having trouble saving your work"
 msgstr "سفعيهخ'س اشدهرل فقخعزمث سشدهرل غخعق صخقن"
 
@@ -5224,7 +5237,6 @@ msgstr ""
 
 #: cms/static/js/factories/manage_users.js
 #: cms/static/js/factories/manage_users_lib.js
-#: common/static/common/templates/discussion/post-user-display.underscore
 #: common/static/common/templates/discussion/thread-list-item.underscore
 msgid "Staff"
 msgstr "سفشبب"
@@ -6336,9 +6348,12 @@ msgid "Submit"
 msgstr "سعزوهف"
 
 #: common/static/common/templates/discussion/post-user-display.underscore
-#: common/static/common/templates/discussion/thread-list-item.underscore
-msgid "Community TA"
-msgstr "ذخووعرهفغ فش"
+msgid "(Community TA)"
+msgstr "(ذخووعرهفغ فش)"
+
+#: common/static/common/templates/discussion/post-user-display.underscore
+msgid "(Staff)"
+msgstr "(سفشبب)"
 
 #: common/static/common/templates/discussion/profile-thread.underscore
 #: common/static/common/templates/discussion/thread.underscore
@@ -6404,6 +6419,10 @@ msgstr "حهررثي"
 #: common/static/common/templates/discussion/thread-list-item.underscore
 msgid "Following"
 msgstr "بخممخصهرل"
+
+#: common/static/common/templates/discussion/thread-list-item.underscore
+msgid "Community TA"
+msgstr "ذخووعرهفغ فش"
 
 #: common/static/common/templates/discussion/thread-list-item.underscore
 msgid "{unread_comments_count} new"

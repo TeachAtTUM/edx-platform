@@ -32,8 +32,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1a\n"
 "Report-Msgid-Bugs-To: openedx-translation@googlegroups.com\n"
-"POT-Creation-Date: 2017-02-02 19:34+0000\n"
-"PO-Revision-Date: 2017-02-02 19:34:37.395873\n"
+"POT-Creation-Date: 2017-02-06 12:48+0000\n"
+"PO-Revision-Date: 2017-02-06 12:48:21.224748\n"
 "Last-Translator: \n"
 "Language-Team: openedx-translation <openedx-translation@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -13388,18 +13388,18 @@ msgstr ""
 
 #. Translators: This is a menu option for showing all forum threads unfiltered
 #: lms/templates/discussion/_thread_list_template.html
-msgid "Show all"
+msgid "Show all posts"
 msgstr ""
 
 #. Translators: This is a menu option for showing only unread forum threads
 #: lms/templates/discussion/_thread_list_template.html
-msgid "Unread"
+msgid "Unread posts"
 msgstr ""
 
 #. Translators: This is a menu option for showing only unanswered forum
 #. question threads
 #: lms/templates/discussion/_thread_list_template.html
-msgid "Unanswered"
+msgid "Unanswered posts"
 msgstr ""
 
 #. Translators: This is a menu option for showing only forum threads flagged
@@ -16728,6 +16728,10 @@ msgstr ""
 
 #: lms/templates/wiki/includes/article_menu.html
 msgid "{span_start}active{span_end}"
+msgstr ""
+
+#: lms/templates/wiki/includes/breadcrumbs.html
+msgid "Course Wiki"
 msgstr ""
 
 #: lms/templates/wiki/includes/breadcrumbs.html
