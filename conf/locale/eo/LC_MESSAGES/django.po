@@ -32,8 +32,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1a\n"
 "Report-Msgid-Bugs-To: openedx-translation@googlegroups.com\n"
-"POT-Creation-Date: 2017-02-06 12:48+0000\n"
-"PO-Revision-Date: 2017-02-06 12:48:21.224748\n"
+"POT-Creation-Date: 2017-02-08 17:59+0000\n"
+"PO-Revision-Date: 2017-02-08 17:59:29.132069\n"
 "Last-Translator: \n"
 "Language-Team: openedx-translation <openedx-translation@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -12743,14 +12743,6 @@ msgstr "Güïdéd Dïsçüssïön Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт α�
 #: lms/templates/annotatable.html
 msgid "Hide Annotations"
 msgstr "Hïdé Ànnötätïöns Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αм#"
-
-#: lms/templates/bookmark_button.html
-msgid "Click to remove"
-msgstr "Çlïçk tö rémövé Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт α#"
-
-#: lms/templates/bookmark_button.html
-msgid "Click to add"
-msgstr "Çlïçk tö ädd Ⱡ'σяєм ιρѕυм ∂σłσя ѕ#"
 
 #: lms/templates/bookmark_button.html lms/templates/seq_module.html
 msgid "Bookmarked"
