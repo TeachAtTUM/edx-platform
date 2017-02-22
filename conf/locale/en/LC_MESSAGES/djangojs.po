@@ -26,8 +26,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1a\n"
 "Report-Msgid-Bugs-To: openedx-translation@googlegroups.com\n"
-"POT-Creation-Date: 2017-02-08 17:58+0000\n"
-"PO-Revision-Date: 2017-02-08 17:59:29.484187\n"
+"POT-Creation-Date: 2017-02-16 16:44+0000\n"
+"PO-Revision-Date: 2017-02-16 16:46:36.493989\n"
 "Last-Translator: \n"
 "Language-Team: openedx-translation <openedx-translation@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -5959,6 +5959,7 @@ msgid "All Groups"
 msgstr ""
 
 #: common/static/common/templates/discussion/new-post.underscore
+#: common/static/common/templates/discussion/thread-edit.underscore
 msgid ""
 "Add a clear and descriptive title to encourage participation. (Required)"
 msgstr ""
@@ -6024,10 +6025,6 @@ msgstr ""
 
 #: common/static/common/templates/discussion/thread-edit.underscore
 msgid "Editing post"
-msgstr ""
-
-#: common/static/common/templates/discussion/thread-edit.underscore
-msgid "Add a clear and descriptive title to encourage participation."
 msgstr ""
 
 #: common/static/common/templates/discussion/thread-edit.underscore
@@ -7086,7 +7083,7 @@ msgid "View Archived Course"
 msgstr ""
 
 #: lms/templates/learner_dashboard/course_enroll.underscore
-msgid "not enrolled"
+msgid "Not Enrolled"
 msgstr ""
 
 #: lms/templates/learner_dashboard/course_enroll.underscore

@@ -6,7 +6,7 @@ from nose.plugins.attrib import attr
 from unittest import TestCase
 
 from ..block_structure import BlockStructureModulestoreData
-from ..exceptions import TransformerException
+from ..exceptions import TransformerException, TransformerDataIncompatible
 from ..transformers import BlockStructureTransformers
 from .helpers import (
     ChildrenMapTestMixin, MockTransformer, MockFilteringTransformer, mock_registered_transformers
@@ -59,7 +59,7 @@ class TestBlockStructureTransformers(ChildrenMapTestMixin, TestCase):
             with patch(
                 'openedx.core.lib.block_structure.tests.helpers.MockTransformer.collect'
             ) as mock_collect_call:
-                self.transformers.collect(block_structure=MagicMock())
+                BlockStructureTransformers.collect(block_structure=MagicMock())
                 self.assertTrue(mock_collect_call.called)
 
     def test_transform(self):
@@ -71,13 +71,14 @@ class TestBlockStructureTransformers(ChildrenMapTestMixin, TestCase):
             self.transformers.transform(block_structure=MagicMock())
             self.assertTrue(mock_transform_call.called)
 
-    def test_is_collected_outdated(self):
+    def test_verify_versions(self):
         block_structure = self.create_block_structure(
             self.SIMPLE_CHILDREN_MAP,
             BlockStructureModulestoreData
         )
 
         with mock_registered_transformers(self.registered_transformers):
-            self.assertTrue(self.transformers.is_collected_outdated(block_structure))
+            with self.assertRaises(TransformerDataIncompatible):
+                self.transformers.verify_versions(block_structure)
             self.transformers.collect(block_structure)
-            self.assertFalse(self.transformers.is_collected_outdated(block_structure))
+            self.assertTrue(self.transformers.verify_versions(block_structure))

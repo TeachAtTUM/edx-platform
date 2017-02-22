@@ -40,7 +40,6 @@ from lms.djangoapps.instructor.enrollment import uses_shib
 from lms.djangoapps.verify_student.models import SoftwareSecurePhotoVerification
 from lms.djangoapps.ccx.custom_exception import CCXLocatorValidationException
 
-from openedx.core.djangoapps.catalog.utils import get_programs_with_type_logo
 import shoppingcart
 import survey.utils
 import survey.views
@@ -65,12 +64,14 @@ from courseware.courses import (
     sort_by_start_date,
     UserNotEnrolled
 )
+from courseware.date_summary import VerifiedUpgradeDeadlineDate
 from courseware.masquerade import setup_masquerade
 from courseware.model_data import FieldDataCache
 from courseware.models import StudentModule, BaseStudentModuleHistory
 from courseware.url_helpers import get_redirect_url, get_redirect_url_for_global_staff
 from courseware.user_state_client import DjangoXBlockUserStateClient
 from edxmako.shortcuts import render_to_response, render_to_string, marketing_link
+from openedx.core.djangoapps.catalog.utils import get_programs_with_type
 from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
 from openedx.core.djangoapps.coursetalk.helpers import inject_coursetalk_keys_into_context
 from openedx.core.djangoapps.credit.api import (
@@ -86,6 +87,7 @@ from student.roles import GlobalStaff
 from util.cache import cache, cache_if_anonymous
 from util.date_utils import strftime_localized
 from util.db import outer_atomic
+from util.enterprise_helpers import consent_needed_for_course, get_course_specific_consent_url
 from util.milestones_helpers import get_prerequisite_courses_display
 from util.views import _record_feedback_in_zendesk
 from util.views import ensure_valid_course_key, ensure_valid_usage_key
@@ -147,13 +149,15 @@ def courses(request):
         else:
             courses_list = sort_by_announcement(courses_list)
 
-    # Getting all the programs from course-catalog service. The programs_list is being added to the context but it's
-    # not being used currently in courseware/courses.html. To use this list, you need to create a custom theme that
-    # overrides courses.html. The modifications to courses.html to display the programs will be done after the support
-    # for edx-pattern-library is added.
-    if configuration_helpers.get_value("DISPLAY_PROGRAMS_ON_MARKETING_PAGES",
-                                       settings.FEATURES.get("DISPLAY_PROGRAMS_ON_MARKETING_PAGES")):
-        programs_list = get_programs_with_type_logo()
+    # Get the active programs of the type configured for the current site from the catalog service. The programs_list
+    # is being added to the context but it's not being used currently in courseware/courses.html. To use this list,
+    # you need to create a custom theme that overrides courses.html. The modifications to courses.html to display the
+    # programs will be done after the support for edx-pattern-library is added.
+    program_types = configuration_helpers.get_value('ENABLED_PROGRAM_TYPES')
+
+    # Do not add programs to the context if there are no program types enabled for the site.
+    if program_types:
+        programs_list = get_programs_with_type(program_types)
 
     return render_to_response(
         "courseware/courses.html",
@@ -315,6 +319,11 @@ def course_info(request, course_id):
             # to access CCX redirect him to dashboard.
             return redirect(reverse('dashboard'))
 
+        # If the user is sponsored by an enterprise customer, and we still need to get data
+        # sharing consent, redirect to do that first.
+        if consent_needed_for_course(user, course_id):
+            return redirect(get_course_specific_consent_url(request, course_id, 'info'))
+
         # If the user needs to take an entrance exam to access this course, then we'll need
         # to send them to that specific course module before allowing them into other areas
         if user_must_complete_entrance_exam(request, user, course):
@@ -337,6 +346,25 @@ def course_info(request, course_id):
         if settings.FEATURES.get('ENABLE_MKTG_SITE'):
             url_to_enroll = marketing_link('COURSES')
 
+        store_upgrade_cookie = False
+        upgrade_cookie_name = 'show_upgrade_notification'
+        upgrade_link = None
+        if request.user.is_authenticated():
+            show_upgrade_notification = False
+            if request.GET.get('upgrade', 'false') == 'true':
+                store_upgrade_cookie = True
+                show_upgrade_notification = True
+            elif upgrade_cookie_name in request.COOKIES and course_id in request.COOKIES[upgrade_cookie_name]:
+                show_upgrade_notification = True
+
+            if show_upgrade_notification:
+                upgrade_data = VerifiedUpgradeDeadlineDate(course, user)
+                if upgrade_data.is_enabled:
+                    upgrade_link = upgrade_data.link
+                else:
+                    # The upgrade is not enabled so the cookie does not need to be stored
+                    store_upgrade_cookie = False
+
         context = {
             'request': request,
             'masquerade_user': user,
@@ -348,6 +376,7 @@ def course_info(request, course_id):
             'studio_url': studio_url,
             'show_enroll_banner': show_enroll_banner,
             'url_to_enroll': url_to_enroll,
+            'upgrade_link': upgrade_link
         }
 
         # Get the URL of the user's last position in order to display the 'where you were last' message
@@ -365,7 +394,25 @@ def course_info(request, course_id):
         if CourseEnrollment.is_enrolled(request.user, course.id):
             inject_coursetalk_keys_into_context(context, course_key)
 
-        return render_to_response('courseware/info.html', context)
+        response = render_to_response('courseware/info.html', context)
+        if store_upgrade_cookie:
+            if upgrade_cookie_name in request.COOKIES and str(course_id) not in request.COOKIES[upgrade_cookie_name]:
+                cookie_value = '%s,%s' % (course_id, request.COOKIES[upgrade_cookie_name])
+            elif upgrade_cookie_name in request.COOKIES and str(course_id) in request.COOKIES[upgrade_cookie_name]:
+                cookie_value = request.COOKIES[upgrade_cookie_name]
+            else:
+                cookie_value = course_id
+
+            if cookie_value is not None:
+                response.set_cookie(
+                    upgrade_cookie_name,
+                    cookie_value,
+                    max_age=10 * 24 * 60 * 60,  # set for 10 days
+                    domain=settings.SESSION_COOKIE_DOMAIN,
+                    httponly=True  # no use case for accessing from JavaScript
+                )
+
+        return response
 
 
 def get_last_accessed_courseware(course, request, user):
@@ -701,6 +748,11 @@ def _progress(request, course_key, student_id):
 
     course = get_course_with_access(request.user, 'load', course_key, depth=None, check_if_enrolled=True)
     prep_course_for_grading(course, request)
+
+    # If the user is sponsored by an enterprise customer, and we still need to get data
+    # sharing consent, redirect to do that first.
+    if consent_needed_for_course(request.user, unicode(course.id)):
+        return redirect(get_course_specific_consent_url(request, unicode(course.id), 'progress'))
 
     # check to see if there is a required survey that must be taken before
     # the user can access the course.

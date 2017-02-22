@@ -32,8 +32,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1a\n"
 "Report-Msgid-Bugs-To: openedx-translation@googlegroups.com\n"
-"POT-Creation-Date: 2017-02-08 17:59+0000\n"
-"PO-Revision-Date: 2017-02-08 17:59:29.132069\n"
+"POT-Creation-Date: 2017-02-16 16:46+0000\n"
+"PO-Revision-Date: 2017-02-16 16:46:36.064264\n"
 "Last-Translator: \n"
 "Language-Team: openedx-translation <openedx-translation@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -374,10 +374,6 @@ msgstr ""
 
 #: common/djangoapps/student/forms.py
 msgid "To enroll, you must follow the honor code."
-msgstr ""
-
-#: common/djangoapps/student/forms.py
-msgid "You must consent to data sharing to register."
 msgstr ""
 
 #: common/djangoapps/student/forms.py
@@ -744,6 +740,12 @@ msgstr ""
 
 #: common/djangoapps/student/views.py
 msgid "The provided access_token is not valid."
+msgstr ""
+
+#: common/djangoapps/student/views.py
+#: openedx/core/djangoapps/user_api/accounts/api.py
+#: openedx/core/djangoapps/user_api/views.py
+msgid "Account creation not allowed."
 msgstr ""
 
 #: common/djangoapps/student/views.py
@@ -1194,19 +1196,6 @@ msgstr ""
 #: common/djangoapps/util/date_utils.py
 msgctxt "month name"
 msgid "December"
-msgstr ""
-
-#: common/djangoapps/util/enterprise_helpers.py
-msgid ""
-"I agree to allow {platform_name} to share data about my enrollment, "
-"completion and performance in all {platform_name} courses and programs where"
-" my enrollment is sponsored by {ec_name}."
-msgstr ""
-
-#: common/djangoapps/util/enterprise_helpers.py
-msgid ""
-"To link your account with {ec_name}, you are required to consent to data "
-"sharing."
 msgstr ""
 
 #: common/djangoapps/util/file.py
@@ -4892,7 +4881,7 @@ msgid "Upgrade to Verified Certificate"
 msgstr ""
 
 #: lms/djangoapps/courseware/date_summary.py
-#: cms/templates/group_configurations.html
+#: cms/templates/group_configurations.html lms/templates/courseware/info.html
 msgid "Learn More"
 msgstr ""
 
@@ -12740,6 +12729,18 @@ msgid "View Updates in Studio"
 msgstr ""
 
 #: lms/templates/courseware/info.html
+msgid "Give yourself an additional incentive to complete"
+msgstr ""
+
+#: lms/templates/courseware/info.html
+msgid "Earn a verified certificate."
+msgstr ""
+
+#: lms/templates/courseware/info.html
+msgid "Upgrade Now"
+msgstr ""
+
+#: lms/templates/courseware/info.html
 msgid "Course Updates and News"
 msgstr ""
 
@@ -20076,7 +20077,7 @@ msgid "Article unlocked for editing"
 msgstr ""
 
 #: wiki/forms.py
-msgid "Filter..."
+msgid "Filter"
 msgstr ""
 
 #: wiki/core/plugins/base.py

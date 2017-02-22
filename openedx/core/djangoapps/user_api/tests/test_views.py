@@ -19,6 +19,7 @@ from pytz import common_timezones_set, UTC
 from social.apps.django_app.default.models import UserSocialAuth
 
 from django_comment_common import models
+from openedx.core.djangoapps.site_configuration.helpers import get_value
 from openedx.core.lib.api.test_utils import ApiTestCase, TEST_API_KEY
 from openedx.core.lib.time_zone_utils import get_display_time_zone
 from openedx.core.djangolib.testing.utils import CacheIsolationTestCase, skip_unless_lms
@@ -1026,43 +1027,6 @@ class RegistrationViewTest(ThirdPartyAuthTestMixin, UserAPITestCase):
             }
         )
 
-    @mock.patch('util.enterprise_helpers.active_provider_requests_data_sharing')
-    @mock.patch('util.enterprise_helpers.active_provider_enforces_data_sharing')
-    @mock.patch('util.enterprise_helpers.get_enterprise_customer_for_request')
-    @mock.patch('util.enterprise_helpers.configuration_helpers')
-    def test_register_form_consent_field(self, config_helper, get_ec, mock_enforce, mock_request):
-        """
-        Test that if we have an EnterpriseCustomer active for the request, and that
-        EnterpriseCustomer is set to require data sharing consent, the correct
-        field is added to the form descriptor.
-        """
-        fake_ec = mock.MagicMock(
-            enforces_data_sharing_consent=mock.MagicMock(return_value=True),
-            requests_data_sharing_consent=True,
-        )
-        fake_ec.name = 'MegaCorp'
-        get_ec.return_value = fake_ec
-        config_helper.get_value.return_value = 'OpenEdX'
-        mock_request.return_value = True
-        mock_enforce.return_value = True
-        self._assert_reg_field(
-            dict(),
-            {
-                u"name": u"data_sharing_consent",
-                u"type": u"checkbox",
-                u"required": True,
-                u"label": (
-                    "I agree to allow OpenEdX to share data about my enrollment, "
-                    "completion and performance in all OpenEdX courses and programs "
-                    "where my enrollment is sponsored by MegaCorp."
-                ),
-                u"defaultValue": False,
-                u"errorMessages": {
-                    u'required': u'To link your account with MegaCorp, you are required to consent to data sharing.',
-                }
-            }
-        )
-
     @mock.patch('openedx.core.djangoapps.user_api.views._')
     def test_register_form_level_of_education_translations(self, fake_gettext):
         fake_gettext.side_effect = lambda text: text + ' TRANSLATED'
@@ -1773,6 +1737,24 @@ class RegistrationViewTest(ThirdPartyAuthTestMixin, UserAPITestCase):
             self.assertHttpOK(response)
 
         self.assertContains(response, 'Kosovo')
+
+    def test_create_account_not_allowed(self):
+        """
+        Test case to check user creation is forbidden when ALLOW_PUBLIC_ACCOUNT_CREATION feature flag is turned off
+        """
+        def _side_effect_for_get_value(value, default=None):
+            """
+            returns a side_effect with given return value for a given value
+            """
+            if value == 'ALLOW_PUBLIC_ACCOUNT_CREATION':
+                return False
+            else:
+                return get_value(value, default)
+
+        with mock.patch('openedx.core.djangoapps.site_configuration.helpers.get_value') as mock_get_value:
+            mock_get_value.side_effect = _side_effect_for_get_value
+            response = self.client.post(self.url, {"email": self.EMAIL, "username": self.USERNAME})
+            self.assertEqual(response.status_code, 403)
 
 
 @httpretty.activate

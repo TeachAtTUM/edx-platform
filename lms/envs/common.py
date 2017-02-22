@@ -254,10 +254,6 @@ FEATURES = {
     # Set to True to change the course sorting behavior by their start dates, latest first.
     'ENABLE_COURSE_SORTING_BY_START_DATE': True,
 
-    # When set to True, a list of programs is displayed along with the list of courses
-    # when the user visits the homepage or the find courses page.
-    'DISPLAY_PROGRAMS_ON_MARKETING_PAGES': False,
-
     # Expose Mobile REST API. Note that if you use this, you must also set
     # ENABLE_OAUTH2_PROVIDER to True
     'ENABLE_MOBILE_REST_API': False,
@@ -368,6 +364,9 @@ FEATURES = {
 
     # Set this to False to facilitate cleaning up invalid xml from your modulestore.
     'ENABLE_XBLOCK_XML_VALIDATION': True,
+
+    # Allow public account creation
+    'ALLOW_PUBLIC_ACCOUNT_CREATION': True,
 }
 
 # Ignore static asset files on import which match this pattern
@@ -1885,6 +1884,8 @@ YOUTUBE = {
     # YouTube JavaScript API
     'API': 'https://www.youtube.com/iframe_api',
 
+    'TEST_TIMEOUT': 1500,
+
     # URL to get YouTube metadata
     'METADATA_URL': 'https://www.googleapis.com/youtube/v3/videos/',
 
@@ -2159,10 +2160,13 @@ INSTALLED_APPS = (
 
     # Customized celery tasks, including persisting failed tasks so they can
     # be retried
-    'openedx.core.djangoapps.celery_utils',
+    'celery_utils',
 
     # Ability to detect and special-case crawler behavior
     'openedx.core.djangoapps.crawlers',
+
+    # Unusual migrations
+    'database_fixups',
 )
 
 # Migrations which are not in the standard module "migrations"

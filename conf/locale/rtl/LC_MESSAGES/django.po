@@ -32,8 +32,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1a\n"
 "Report-Msgid-Bugs-To: openedx-translation@googlegroups.com\n"
-"POT-Creation-Date: 2017-02-08 17:59+0000\n"
-"PO-Revision-Date: 2017-02-08 17:59:29.132069\n"
+"POT-Creation-Date: 2017-02-16 16:46+0000\n"
+"PO-Revision-Date: 2017-02-16 16:46:36.064264\n"
 "Last-Translator: \n"
 "Language-Team: openedx-translation <openedx-translation@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -396,10 +396,6 @@ msgstr "ش ذخعرفقغ هس قثضعهقثي"
 #: common/djangoapps/student/forms.py
 msgid "To enroll, you must follow the honor code."
 msgstr "فخ ثرقخمم, غخع وعسف بخممخص فاث اخرخق ذخيث."
-
-#: common/djangoapps/student/forms.py
-msgid "You must consent to data sharing to register."
-msgstr "غخع وعسف ذخرسثرف فخ يشفش ساشقهرل فخ قثلهسفثق."
 
 #: common/djangoapps/student/forms.py
 msgid "You are missing one or more required fields"
@@ -797,6 +793,12 @@ msgstr "فاث حقخدهيثي شذذثسس_فخنثر هس شمقثشيغ شس
 #: common/djangoapps/student/views.py
 msgid "The provided access_token is not valid."
 msgstr "فاث حقخدهيثي شذذثسس_فخنثر هس رخف دشمهي."
+
+#: common/djangoapps/student/views.py
+#: openedx/core/djangoapps/user_api/accounts/api.py
+#: openedx/core/djangoapps/user_api/views.py
+msgid "Account creation not allowed."
+msgstr "شذذخعرف ذقثشفهخر رخف شممخصثي."
 
 #: common/djangoapps/student/views.py
 msgid "Unknown error. Please e-mail us to let us know how it happened."
@@ -1265,24 +1267,6 @@ msgstr "رخدثوزثق"
 msgctxt "month name"
 msgid "December"
 msgstr "يثذثوزثق"
-
-#: common/djangoapps/util/enterprise_helpers.py
-msgid ""
-"I agree to allow {platform_name} to share data about my enrollment, "
-"completion and performance in all {platform_name} courses and programs where"
-" my enrollment is sponsored by {ec_name}."
-msgstr ""
-"ه شلقثث فخ شممخص {platform_name} فخ ساشقث يشفش شزخعف وغ ثرقخمموثرف, "
-"ذخوحمثفهخر شري حثقبخقوشرذث هر شمم {platform_name} ذخعقسثس شري حقخلقشوس صاثقث"
-" وغ ثرقخمموثرف هس سحخرسخقثي زغ {ec_name}."
-
-#: common/djangoapps/util/enterprise_helpers.py
-msgid ""
-"To link your account with {ec_name}, you are required to consent to data "
-"sharing."
-msgstr ""
-"فخ مهرن غخعق شذذخعرف صهفا {ec_name}, غخع شقث قثضعهقثي فخ ذخرسثرف فخ يشفش "
-"ساشقهرل."
 
 #: common/djangoapps/util/file.py
 msgid "The file must end with the extension '{file_types}'."
@@ -5453,7 +5437,7 @@ msgid "Upgrade to Verified Certificate"
 msgstr "عحلقشيث فخ دثقهبهثي ذثقفهبهذشفث"
 
 #: lms/djangoapps/courseware/date_summary.py
-#: cms/templates/group_configurations.html
+#: cms/templates/group_configurations.html lms/templates/courseware/info.html
 msgid "Learn More"
 msgstr "مثشقر وخقث"
 
@@ -14241,6 +14225,18 @@ msgid "View Updates in Studio"
 msgstr "دهثص عحيشفثس هر سفعيهخ"
 
 #: lms/templates/courseware/info.html
+msgid "Give yourself an additional incentive to complete"
+msgstr "لهدث غخعقسثمب شر شييهفهخرشم هرذثرفهدث فخ ذخوحمثفث"
+
+#: lms/templates/courseware/info.html
+msgid "Earn a verified certificate."
+msgstr "ثشقر ش دثقهبهثي ذثقفهبهذشفث."
+
+#: lms/templates/courseware/info.html
+msgid "Upgrade Now"
+msgstr "عحلقشيث رخص"
+
+#: lms/templates/courseware/info.html
 msgid "Course Updates and News"
 msgstr "ذخعقسث عحيشفثس شري رثصس"
 
@@ -22608,8 +22604,8 @@ msgid "Article unlocked for editing"
 msgstr "شقفهذمث عرمخذنثي بخق ثيهفهرل"
 
 #: wiki/forms.py
-msgid "Filter..."
-msgstr "بهمفثق..."
+msgid "Filter"
+msgstr "بهمفثق"
 
 #: wiki/core/plugins/base.py
 msgid "Settings for plugin"

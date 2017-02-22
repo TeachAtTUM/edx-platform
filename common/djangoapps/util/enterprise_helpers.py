@@ -2,8 +2,11 @@
 Helpers to access the enterprise app
 """
 from django.conf import settings
+from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
 import logging
+
+from django.utils.http import urlencode
 
 try:
     from enterprise.models import EnterpriseCustomer
@@ -13,6 +16,7 @@ try:
         active_provider_enforces_data_sharing,
         get_enterprise_customer_for_request,
     )
+    from enterprise.utils import consent_necessary_for_course
 
 except ImportError:
     pass
@@ -26,85 +30,32 @@ def enterprise_enabled():
     """
     Determines whether the Enterprise app is installed
     """
-    return 'enterprise' in settings.INSTALLED_APPS
+    return 'enterprise' in settings.INSTALLED_APPS and getattr(settings, 'ENABLE_ENTERPRISE_INTEGRATION', True)
 
 
-def data_sharing_consent_requested(request):
+def consent_needed_for_course(user, course_id):
     """
-    Determine if the EnterpriseCustomer for a given HTTP request
-    requests data sharing consent
-    """
-    if not enterprise_enabled():
-        return False
-    return active_provider_requests_data_sharing(request)
-
-
-def data_sharing_consent_required_at_login(request):
-    """
-    Determines if data sharing consent is required at
-    a given location
+    Wrap the enterprise app check to determine if the user needs to grant
+    data sharing permissions before accessing a course.
     """
     if not enterprise_enabled():
         return False
-    return active_provider_enforces_data_sharing(request, EnterpriseCustomer.AT_LOGIN)
+    return consent_necessary_for_course(user, course_id)
 
 
-def data_sharing_consent_requirement_at_login(request):
+def get_course_specific_consent_url(request, course_id, return_to):
     """
-    Returns either 'optional' or 'required' based on where we are.
+    Build a URL to redirect the user to the Enterprise app to provide data sharing
+    consent for a specific course ID.
     """
-    if not enterprise_enabled():
-        return None
-    if data_sharing_consent_required_at_login(request):
-        return 'required'
-    if data_sharing_consent_requested(request):
-        return 'optional'
-    return None
-
-
-def insert_enterprise_fields(request, form_desc):
-    """
-    Enterprise methods which modify the logistration form are called from this method.
-    """
-    if not enterprise_enabled():
-        return
-    add_data_sharing_consent_field(request, form_desc)
-
-
-def add_data_sharing_consent_field(request, form_desc):
-    """
-    Adds a checkbox field to be selected if the user consents to share data with
-    the EnterpriseCustomer attached to the SSO provider with which they're authenticating.
-    """
-    enterprise_customer = get_enterprise_customer_for_request(request)
-    required = data_sharing_consent_required_at_login(request)
-
-    if not data_sharing_consent_requested(request):
-        return
-
-    label = _(
-        "I agree to allow {platform_name} to share data about my enrollment, "
-        "completion and performance in all {platform_name} courses and programs "
-        "where my enrollment is sponsored by {ec_name}."
-    ).format(
-        platform_name=configuration_helpers.get_value("PLATFORM_NAME", settings.PLATFORM_NAME),
-        ec_name=enterprise_customer.name
-    )
-
-    error_msg = _(
-        "To link your account with {ec_name}, you are required to consent to data sharing."
-    ).format(
-        ec_name=enterprise_customer.name
-    )
-
-    form_desc.add_field(
-        "data_sharing_consent",
-        label=label,
-        field_type="checkbox",
-        default=False,
-        required=required,
-        error_messages={"required": error_msg},
-    )
+    url_params = {
+        'course_id': course_id,
+        'next': request.build_absolute_uri(reverse(return_to, args=(course_id,)))
+    }
+    querystring = urlencode(url_params)
+    full_url = reverse('grant_data_sharing_permissions') + '?' + querystring
+    LOGGER.info('Redirecting to %s to complete data sharing consent', full_url)
+    return full_url
 
 
 def insert_enterprise_pipeline_elements(pipeline):

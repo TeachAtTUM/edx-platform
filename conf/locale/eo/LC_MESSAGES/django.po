@@ -32,8 +32,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1a\n"
 "Report-Msgid-Bugs-To: openedx-translation@googlegroups.com\n"
-"POT-Creation-Date: 2017-02-08 17:59+0000\n"
-"PO-Revision-Date: 2017-02-08 17:59:29.132069\n"
+"POT-Creation-Date: 2017-02-16 16:46+0000\n"
+"PO-Revision-Date: 2017-02-16 16:46:36.064264\n"
 "Last-Translator: \n"
 "Language-Team: openedx-translation <openedx-translation@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -437,12 +437,6 @@ msgstr "À çöüntrý ïs réqüïréd Ⱡ'σяєм ιρѕυм ∂σłσя ѕι
 msgid "To enroll, you must follow the honor code."
 msgstr ""
 "Tö énröll, ýöü müst föllöw thé hönör çödé. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, "
-"¢σηѕє¢тєтυя #"
-
-#: common/djangoapps/student/forms.py
-msgid "You must consent to data sharing to register."
-msgstr ""
-"Ýöü müst çönsént tö dätä shärïng tö régïstér. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, "
 "¢σηѕє¢тєтυя #"
 
 #: common/djangoapps/student/forms.py
@@ -924,6 +918,12 @@ msgid "The provided access_token is not valid."
 msgstr ""
 "Thé prövïdéd äççéss_tökén ïs nöt välïd. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, "
 "¢σηѕє¢тєтυя#"
+
+#: common/djangoapps/student/views.py
+#: openedx/core/djangoapps/user_api/accounts/api.py
+#: openedx/core/djangoapps/user_api/views.py
+msgid "Account creation not allowed."
+msgstr "Àççöünt çréätïön nöt ällöwéd. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢#"
 
 #: common/djangoapps/student/views.py
 msgid "Unknown error. Please e-mail us to let us know how it happened."
@@ -1427,30 +1427,6 @@ msgstr "Növémßér Ⱡ'σяєм ιρѕυм ∂#"
 msgctxt "month name"
 msgid "December"
 msgstr "Déçémßér Ⱡ'σяєм ιρѕυм ∂#"
-
-#: common/djangoapps/util/enterprise_helpers.py
-msgid ""
-"I agree to allow {platform_name} to share data about my enrollment, "
-"completion and performance in all {platform_name} courses and programs where"
-" my enrollment is sponsored by {ec_name}."
-msgstr ""
-"Ì ägréé tö ällöw {platform_name} tö shäré dätä äßöüt mý énröllmént, "
-"çömplétïön änd pérförmänçé ïn äll {platform_name} çöürsés änd prögräms whéré"
-" mý énröllmént ïs spönsöréd ßý {ec_name}. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, "
-"¢σηѕє¢тєтυя α∂ιριѕι¢ιηg єłιт, ѕє∂ ∂σ єιυѕмσ∂ тємρσя ιη¢ι∂ι∂υηт υт łαвσяє єт "
-"∂σłσяє мαgηα αłιqυα. υт єηιм α∂ мιηιм νєηιαм, qυιѕ ησѕтяυ∂ єχєя¢ιтαтιση "
-"υłłαм¢σ łαвσяιѕ ηιѕι υт αłιqυιρ єχ єα ¢σммσ∂σ ¢σηѕєqυαт. ∂υιѕ αυтє ιяυяє "
-"∂σłσя ιη яєρяєнєη∂єяιт ιη νσłυρтαтє νєłιт єѕѕє ¢ιłłυм ∂σłσяє єυ ƒυgιαт ηυłłα"
-" ραяιαтυя. єχ¢єρтєυя ѕιηт σ¢¢αє¢αт ¢υρι∂αтαт ηση ρяσι∂єηт, ѕυηт ιη ¢υłρα qυι"
-" σƒƒι¢ια ∂єѕєяυηт мσł#"
-
-#: common/djangoapps/util/enterprise_helpers.py
-msgid ""
-"To link your account with {ec_name}, you are required to consent to data "
-"sharing."
-msgstr ""
-"Tö lïnk ýöür äççöünt wïth {ec_name}, ýöü äré réqüïréd tö çönsént tö dätä "
-"shärïng. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢тєтυ#"
 
 #: common/djangoapps/util/file.py
 msgid "The file must end with the extension '{file_types}'."
@@ -6381,7 +6357,7 @@ msgid "Upgrade to Verified Certificate"
 msgstr "Ûpgrädé tö Vérïfïéd Çértïfïçäté Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢т#"
 
 #: lms/djangoapps/courseware/date_summary.py
-#: cms/templates/group_configurations.html
+#: cms/templates/group_configurations.html lms/templates/courseware/info.html
 msgid "Learn More"
 msgstr "Léärn Möré Ⱡ'σяєм ιρѕυм ∂σłσ#"
 
@@ -16348,6 +16324,20 @@ msgid "View Updates in Studio"
 msgstr "Vïéw Ûpdätés ïn Stüdïö Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢#"
 
 #: lms/templates/courseware/info.html
+msgid "Give yourself an additional incentive to complete"
+msgstr ""
+"Gïvé ýöürsélf än äddïtïönäl ïnçéntïvé tö çömplété Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт "
+"αмєт, ¢σηѕє¢тєтυя α#"
+
+#: lms/templates/courseware/info.html
+msgid "Earn a verified certificate."
+msgstr "Éärn ä vérïfïéd çértïfïçäté. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢#"
+
+#: lms/templates/courseware/info.html
+msgid "Upgrade Now"
+msgstr "Ûpgrädé Nöw Ⱡ'σяєм ιρѕυм ∂σłσя #"
+
+#: lms/templates/courseware/info.html
 msgid "Course Updates and News"
 msgstr "Çöürsé Ûpdätés änd Néws Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σ#"
 
@@ -26148,8 +26138,8 @@ msgid "Article unlocked for editing"
 msgstr "Àrtïçlé ünlöçkéd för édïtïng Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢#"
 
 #: wiki/forms.py
-msgid "Filter..."
-msgstr "Fïltér... Ⱡ'σяєм ιρѕυм ∂σł#"
+msgid "Filter"
+msgstr "Fïltér Ⱡ'σяєм ιρѕυ#"
 
 #: wiki/core/plugins/base.py
 msgid "Settings for plugin"
