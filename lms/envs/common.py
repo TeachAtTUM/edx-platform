@@ -2163,7 +2163,7 @@ SOCIAL_MEDIA_FOOTER_NAMES = [
     "youtube",
     "linkedin",
     "google_plus",
-    "reddit",
+    # "reddit",
 ]
 
 # JWT Settings
