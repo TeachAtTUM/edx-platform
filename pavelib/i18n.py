@@ -186,7 +186,7 @@ def i18n_ltr():
     "pavelib.i18n.i18n_transifex_pull",
     "pavelib.i18n.i18n_extract",
     "pavelib.i18n.i18n_dummy",
-    "pavelib.i18n.i18n_generate_strict",
+    "pavelib.i18n.i18n_generate",
 )
 def i18n_robot_pull():
     """
