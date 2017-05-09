@@ -825,7 +825,7 @@ STATICFILES_DIRS = [
 ]
 
 FAVICON_PATH = 'images/favicon.ico'
-DEFAULT_COURSE_ABOUT_IMAGE_URL = 'images/pencils.jpg'
+DEFAULT_COURSE_ABOUT_IMAGE_URL = 'images/tum-fahnen.jpg'
 
 # User-uploaded content
 MEDIA_ROOT = '/edx/var/edxapp/media/'
