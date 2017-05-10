@@ -26,7 +26,8 @@ def course_image_url(course, image_key='course_image'):
             url += '/images/' + image_key + '.jpg'
     elif not getattr(course, image_key):
         # if image_key is empty, use the default image url from settings
-        url = settings.STATIC_URL + settings.DEFAULT_COURSE_ABOUT_IMAGE_URL
+	# TUM: Cannot use STATIC_URL from settings since that always carries the revision number (which we don't want here) 
+        url = '/static/' + settings.DEFAULT_COURSE_ABOUT_IMAGE_URL
     else:
         loc = StaticContent.compute_location(course.id, getattr(course, image_key))
         url = StaticContent.serialize_asset_key_with_slash(loc)
