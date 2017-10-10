@@ -539,8 +539,10 @@ def course_about(request, course_id):
         course_details = CourseDetails.populate(course)
         modes = CourseMode.modes_for_course_dict(course_key)
 
-        if configuration_helpers.get_value('ENABLE_MKTG_SITE', settings.FEATURES.get('ENABLE_MKTG_SITE', False)):
-            return redirect(reverse('info', args=[course.id.to_deprecated_string()]))
+        # TUM: Disable this functionality to access about pages
+        # if configuration_helpers.get_value('ENABLE_MKTG_SITE', settings.FEATURES.get('ENABLE_MKTG_SITE', False)):
+        #    CourseEnrollment.enroll(request.user, course, check_access=True) # TUM: Auto-enroll students on request
+        #    return redirect(reverse('info', args=[course.id.to_deprecated_string()]))
 
         registered = registered_for_course(course, request.user)
 
