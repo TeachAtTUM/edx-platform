@@ -309,7 +309,8 @@ def course_info(request, course_id):
             return redirect(reverse('course_survey', args=[unicode(course.id)]))
 
         is_from_dashboard = reverse('dashboard') in request.META.get('HTTP_REFERER', [])
-        if course.bypass_home and is_from_dashboard:
+        # if course.bypass_home and is_from_dashboard:
+        if course.bypass_home: # TUM: Make it not require the dashboard request meta
             return redirect(reverse('courseware', args=[course_id]))
 
         studio_url = get_studio_url(course, 'course_info')
