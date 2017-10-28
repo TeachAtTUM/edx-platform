@@ -541,7 +541,7 @@ def course_about(request, course_id):
 
         # TUM: Disable this functionality to access about pages
         if configuration_helpers.get_value('ENABLE_MKTG_SITE', settings.FEATURES.get('ENABLE_MKTG_SITE', False)):
-            if not CourseEnrollment.is_enrolled(request.user, course.id)
+            if not CourseEnrollment.is_enrolled(request.user, course.id):
                 CourseEnrollment.enroll(request.user, course.id, check_access=True) # TUM: Auto-enroll students on request
             return redirect(reverse('info', args=[course.id.to_deprecated_string()]))
 
