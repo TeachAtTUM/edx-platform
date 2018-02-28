@@ -327,7 +327,9 @@ def course_info(request, course_id):
 
         is_from_dashboard = reverse('dashboard') in request.META.get('HTTP_REFERER', [])
         # if course.bypass_home and is_from_dashboard:
-        if course.bypass_home: # TUM-TOOLBOX: Make it not require the dashboard request meta
+        # TUM-TOOLBOX: Always redirect from the start page if the user is logged in 
+        # Otherwise keep the page because it says stuff like 'please register'
+        if course.bypass_home and request.user.is_authenticated() and CourseEnrollment.is_enrolled(user, course.id):
             return redirect(reverse('courseware', args=[course_id]))
 
         studio_url = get_studio_url(course, 'course_info')
