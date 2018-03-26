@@ -559,7 +559,11 @@ def course_about(request, course_id):
         course_details = CourseDetails.populate(course)
         modes = CourseMode.modes_for_course_dict(course_key)
 
+        auto_enroll_all_students = True # TUM Set to false to disable auto-enroll all students
+        # TUM: Disable this functionality to access about pages
         if configuration_helpers.get_value('ENABLE_MKTG_SITE', settings.FEATURES.get('ENABLE_MKTG_SITE', False)):
+            if auto_enroll_all_students and not CourseEnrollment.is_enrolled(request.user, course.id):
+                CourseEnrollment.enroll(request.user, course.id, check_access=True) # TUM: Auto-enroll students on request
             return redirect(reverse('info', args=[course.id.to_deprecated_string()]))
 
         registered = registered_for_course(course, request.user)
