@@ -193,10 +193,13 @@ class MongoContentStore(ContentStore):
             #
             # When debugging course exports, this might be a good place
             # to look. -- pmitros
-            self.export(asset['asset_key'], output_directory)
-            for attr, value in asset.iteritems():
-                if attr not in ['_id', 'md5', 'uploadDate', 'length', 'chunkSize', 'asset_key']:
-                    policy.setdefault(asset['asset_key'].name, {})[attr] = value
+            try:
+                self.export(asset['asset_key'], output_directory)
+                for attr, value in asset.iteritems():
+                    if attr not in ['_id', 'md5', 'uploadDate', 'length', 'chunkSize', 'asset_key']:
+                        policy.setdefault(asset['asset_key'].name, {})[attr] = value
+            except:
+                logging.getLogger(__name__).exception(u'There was an error exporting static asset %s in course %s', asset['name'], course_key)
 
         with open(assets_policy_file, 'w') as f:
             json.dump(policy, f, sort_keys=True, indent=4)
