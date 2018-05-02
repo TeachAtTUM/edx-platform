@@ -2,6 +2,7 @@
 MongoDB/GridFS-level code for the contentstore.
 """
 import os
+import logging
 import json
 import pymongo
 import gridfs
